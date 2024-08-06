@@ -1,0 +1,15 @@
+.shell {
+  background-color: var(--mantine-color-ocean-5);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+}
+
+.title {
+  font-size: 60px;
+}
+
+.bottom {
+  border-radius: var(--mantine-border-radius);
+}

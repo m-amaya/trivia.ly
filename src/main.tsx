@@ -1,4 +1,5 @@
 import "@fontsource-variable/inter"; // Supports weights 100-900
+import "@fontsource-variable/lexend"; // Supports weights 100-900
 import { MantineProvider } from "@mantine/core";
 import "@mantine/core/styles.css";
 import { router } from "@src/tokens/router.tsx";
