@@ -1,5 +1,9 @@
 .shell {
-  background-color: var(--mantine-color-ocean-5);
+  align-items: center;
+  background: linear-gradient(
+    var(--mantine-color-violet-8),
+    var(--mantine-color-violet-black)
+  );
   color: white;
   display: flex;
   flex-direction: column;
@@ -12,4 +16,5 @@
 
 .bottom {
   border-radius: var(--mantine-border-radius);
+  max-width: 600px;
 }

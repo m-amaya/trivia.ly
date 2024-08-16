@@ -3,83 +3,49 @@ import {
   createTheme,
   CSSVariablesResolver,
   DEFAULT_THEME,
+  Menu,
   mergeMantineTheme
 } from "@mantine/core";
+import chroma from "chroma-js";
 
 const themeOverride = createTheme({
   autoContrast: true,
   colors: {
-    blue: [
-      "#ccfcff",
-      "#9ff6ff",
-      "#5cecff",
-      "#13d9fd",
-      "#00bce3",
-      "#0095bf",
-      "#04769a",
-      "#0e607d",
-      "#104f69",
-      "#043448"
+    pink: [
+      "#fef1f8",
+      "#fee5f2",
+      "#ffcae7",
+      "#ff9fd2",
+      "#ff63b2",
+      "#ff479c",
+      "#f0126e",
+      "#d10553",
+      "#ad0745",
+      "#8f0c3d"
     ],
-    ocean: [
-      "#cefffd",
-      "#a4fdfb",
-      "#65fbfa",
-      "#1feef1",
-      "#03c6cb",
-      "#06a7b4",
-      "#0c8592",
-      "#146b76",
-      "#155864",
-      "#073a45"
-    ],
-    orange: [
-      "#ffe6d4",
-      "#ffc9a8",
-      "#ffa371",
-      "#ff7138",
-      "#fe4b11",
-      "#ef3107",
-      "#c62008",
-      "#9d1c0f",
-      "#7e1a10",
-      "#440906"
-    ],
-    red: [
-      "#ffdde2",
-      "#ffc0ca",
-      "#ff94a4",
-      "#ff5771",
-      "#ff2344",
-      "#ff193c",
-      "#d70021",
-      "#b1031d",
-      "#920a1f",
-      "#50000c"
-    ],
-    turquoise: [
-      "#c3fff6",
-      "#87ffef",
-      "#43ffe6",
-      "#0bedd0",
-      "#00d7bd",
-      "#00ae9d",
-      "#008a7f",
-      "#026d66",
-      "#085954",
-      "#003736"
+    violet: [
+      "#f4f3ff",
+      "#ebe9fe",
+      "#d9d7fd",
+      "#bdb6fc",
+      "#9c8df8",
+      "#7b5ff3",
+      "#693dea",
+      "#5a2bd6",
+      "#4b23b4",
+      "#412098"
     ],
     yellow: [
-      "#fffec1",
-      "#fff986",
-      "#ffed41",
-      "#ffdc0d",
-      "#ffcd00",
-      "#d19600",
-      "#a66b02",
-      "#89530a",
-      "#74440f",
-      "#442304"
+      "#fdfee8",
+      "#fcffc2",
+      "#fdff89",
+      "#fffb37",
+      "#fdef12",
+      "#ecd406",
+      "#cca702",
+      "#a37805",
+      "#865e0d",
+      "#724d11"
     ]
   },
   cursorType: "pointer",
@@ -89,39 +55,48 @@ const themeOverride = createTheme({
   headings: {
     fontFamily: "'Lexend Variable', sans-serif"
   },
-  primaryColor: "turquoise",
+  primaryColor: "violet",
   other: {
-    blue: {
-      white: "#ebffff"
+    pink: {
+      black: "#58001f"
     },
-    ocean: {
-      white: "##ecfffe"
-    },
-    orange: {
-      white: "#fff4ed"
-    },
-    red: {
-      white: "#fff0f2"
-    },
-    turquoise: {
-      white: "#eefffb"
+    violet: {
+      black: "#241164"
     },
     yellow: {
-      white: "#fffee7"
+      black: "#432905"
     }
   },
   components: {
     Button: Button.extend({
       styles: {
-        label: {
-          color: "var(--mantine-button-color)"
-        },
         root: {
           "--button-bg": "var(--mantine-button-bg)",
           "--button-hover": "var(--mantine-button-hover)",
-          transition: "background-color 200ms"
+          "--button-hover-color": "var(--mantine-button-hover-color)",
+          transition: "all 200ms"
         }
       }
+    }),
+    Menu: Menu.extend({
+      styles: (theme) => ({
+        divider: {
+          borderColor: chroma(theme.colors.violet[1]).alpha(0.2).css()
+        },
+        dropdown: {
+          "--menu-item-color": theme.white,
+          "--menu-item-hover": chroma(theme.other.violet.black)
+            .brighten(0.8)
+            .css(),
+          "--popover-border-color": chroma(theme.colors.violet[1])
+            .alpha(0.2)
+            .css(),
+          backgroundColor: chroma(theme.other.violet.black).brighten(0.4).css()
+        },
+        itemLabel: {
+          fontSize: 16
+        }
+      })
     })
   }
 });
@@ -130,12 +105,17 @@ export const theme = mergeMantineTheme(DEFAULT_THEME, themeOverride);
 
 export const resolver: CSSVariablesResolver = (theme) => ({
   variables: {
-    "--mantine-border-radius": `${theme.defaultRadius}px`
+    "--mantine-border-radius": `${theme.defaultRadius}px`,
+    "--mantine-button-bg": theme.colors.violet[6],
+    "--mantine-button-color": theme.white,
+    "--mantine-button-hover": theme.colors.yellow[5],
+    "--mantine-button-hover-color": theme.other.violet.black,
+    "--mantine-color-violet-black": theme.other.violet.black,
+    "--text-color": theme.white
   },
-  light: {
-    "--mantine-button-bg": theme.colors.turquoise[3],
-    "--mantine-button-color": theme.colors.turquoise[9],
-    "--mantine-button-hover": theme.colors.turquoise[1]
-  },
-  dark: {}
+  light: {},
+  dark: {
+    "--mantine-color-body": theme.other.violet.black,
+    "--mantine-color-dimmed": chroma(theme.colors.violet[1]).darken(1).css()
+  }
 });
